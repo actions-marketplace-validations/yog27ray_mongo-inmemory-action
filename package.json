@@ -1,6 +1,6 @@
 {
   "name": "mongo-inmemory-action",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "A Github Action to create a Docker container from the official mongo image.",
   "main": "index.js",
   "dependencies": {
