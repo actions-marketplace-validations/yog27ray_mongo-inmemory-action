@@ -471,28 +471,34 @@ const { exec } = __nccwpck_require__(129);
 async function executeCommands(commands) {
   const command = commands.shift();
   if (!command) {
-    return;
+    return [];
   }
-  await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     console.log("Executing the following command: ", command);
     exec(command, function (error, stdout, stderr) {
       if (error) {
         reject(error);
         return;
       }
-      console.log('>>>>>', stdout);
-      resolve();
+      resolve(stdout);
     })
   });
-  await executeCommands(commands);
+  const results = await executeCommands(commands);
+  results.unshift(result);
+  return results;
 }
 
 try {
-  const id = '1';
-  const commands = [];
-  commands.push(`ls -la`);
-  commands.push(`docker stop ${id}`);
-  executeCommands(commands).catch((error) => core.setFailed(error.message));
+  const image_version = core.getInput("image_version");
+  const port = core.getInput("port");
+  const ENV_VARIABLE = `MONGO_${port}_${image_version}`;
+
+  executeCommands([`echo $${ENV_VARIABLE}`])
+      .then(([dockerId]) => {
+        console.log('>>>>>DockerId:', dockerId);
+        return executeCommands([`docker stop ${dockerId}`, `docker rm ${dockerId}`])
+      })
+      .catch((error) => core.setFailed(error.message));
 } catch (error) {
   core.setFailed(error.message);
 }
