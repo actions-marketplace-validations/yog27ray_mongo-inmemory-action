@@ -492,10 +492,12 @@ try {
   const image_version = core.getInput("image_version");
   const port = core.getInput("port");
   const ENV_VARIABLE = `MONGO_${port}_${image_version}`;
-
-  executeCommands([`echo $${ENV_VARIABLE}`])
+  executeCommands([`cat /tmp/${ENV_VARIABLE}`])
       .then(([dockerId]) => {
         console.log('>>>>>DockerId:', dockerId);
+        if (!dockerId) {
+          return Promise.resolve();
+        }
         return executeCommands([`docker stop ${dockerId}`, `docker rm ${dockerId}`])
       })
       .catch((error) => core.setFailed(error.message));

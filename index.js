@@ -26,10 +26,11 @@ try {
   const port = core.getInput("port");
   const ENV_VARIABLE = `MONGO_${port}_${image_version}`;
 
-  const commands = [`docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`];
-  executeCommands(commands)
-      .then(([dockerId]) => {
-        console.log(`::set-env name=${ENV_VARIABLE}::${dockerId}`);
+  executeCommands([`docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`, 'ls /'])
+      .then(([dockerId, list]) => {
+        console.log('DockerId: ', dockerId);
+        console.log('list: ', list);
+        return executeCommands(`echo ${dockerId} > /tmp/${ENV_VARIABLE}`)
       }).catch((error) => core.setFailed(error.message));
 } catch (error) {
   core.setFailed(error.message);
