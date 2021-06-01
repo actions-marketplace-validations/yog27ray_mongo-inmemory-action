@@ -1,4 +1,4 @@
-# mongo-memory-action
+# mongo-inmemory-action
 
 [![GitHub Actions status](https://github.com/yog27ray/mongo-inmemory-action/workflows/mongo-inmemory-action%20CI/badge.svg)](https://github.com/yog27ray/mongo-inmemory-action/actions) [![GitHub Releases](https://img.shields.io/github/release/yog27ray/mongo-inmemory-action.svg)](https://github.com/yog27ray/mongo-inmemory-action/releases)
 
