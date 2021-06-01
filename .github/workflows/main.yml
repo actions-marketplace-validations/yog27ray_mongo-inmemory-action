@@ -10,7 +10,7 @@ jobs:
         id: build_mongo_docker
         uses: yog27ray/mongo-inmemory-action@v1.0.0
         with:
-          image-version: latest
+          image_version: latest
           port: 27007
       - name: Test mongo connection
         id: test_mongo_connection
