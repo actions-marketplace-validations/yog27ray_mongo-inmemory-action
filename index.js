@@ -5,7 +5,7 @@ try {
   const image_version = core.getInput("image_version");
   const port = core.getInput("port");
 
-  const command = `docker run -d -p ${port}:${port} mongo:${image_version} --port ${image_version} --storageEngine ephemeralForTest`;
+  const command = `docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`;
 
   console.log("Executing the following command: ");
   console.log(command);
