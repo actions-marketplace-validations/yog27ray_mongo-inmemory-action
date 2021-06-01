@@ -474,7 +474,7 @@ async function executeCommands(commands) {
     return [];
   }
   const result = await new Promise((resolve, reject) => {
-    console.log("Executing the following command: ", command);
+    // console.log("Executing the following command: ", command);
     exec(command, function (error, stdout, stderr) {
       if (error) {
         reject(error);
@@ -492,10 +492,8 @@ try {
   const image_version = core.getInput("image_version");
   const port = core.getInput("port");
   const ENV_VARIABLE = `MONGO_${port}_${image_version}`;
-  // executeCommands([`[ -f /tmp/${ENV_VARIABLE} ] && cat /tmp/${ENV_VARIABLE}`])
-  executeCommands([`cat /tmp/${ENV_VARIABLE}`])
+  executeCommands([`[ -f /tmp/${ENV_VARIABLE} ] && cat /tmp/${ENV_VARIABLE}`])
       .then(([dockerId]) => {
-        console.log('>>>>>DockerId:', dockerId);
         if (!dockerId) {
           return Promise.resolve();
         }

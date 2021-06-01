@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Create mongo Docker container
         id: build_mongo_docker
-        uses: yog27ray/mongo-inmemory-action@v1.0.3
+        uses: yog27ray/mongo-inmemory-action@v1.1.0
         with:
           image-version: latest
           port: 27017

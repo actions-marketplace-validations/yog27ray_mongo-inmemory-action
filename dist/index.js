@@ -474,7 +474,7 @@ async function executeCommands(commands) {
     return [];
   }
   const result = await new Promise((resolve, reject) => {
-    console.log("Executing the following command: ", command);
+    // console.log("Executing the following command: ", command);
     exec(command, function (error, stdout, stderr) {
       if (error) {
         reject(error);
