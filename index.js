@@ -27,13 +27,7 @@ try {
   const ENV_VARIABLE = `MONGO_${port}_${image_version}`;
 
   executeCommands([`docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`])
-      .then(([dockerId]) => executeCommands([`echo ${dockerId} > /tmp/${ENV_VARIABLE}`]))
-      .then(() => executeCommands(['ls /tmp/']))
-      .then(([result]) => {
-        console.log('result:', result);
-        return executeCommands([`cat /tmp/${ENV_VARIABLE}`])
-      })
-      .then(([result]) => console.log('result:', result))
+      .then(([dockerId]) => executeCommands([`echo ${dockerId.replace('\n', '')} > /tmp/${ENV_VARIABLE}`]))
       .catch((error) => core.setFailed(error.message));
 } catch (error) {
   core.setFailed(error.message);
