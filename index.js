@@ -28,6 +28,8 @@ try {
 
   executeCommands([`docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`])
       .then(([dockerId]) => executeCommands([`echo ${dockerId} > /tmp/${ENV_VARIABLE}`]))
+      .then(() => executeCommands(['ls /tmp/']))
+      .then(() => executeCommands([`cat /tmp/${ENV_VARIABLE}`]))
       .catch((error) => core.setFailed(error.message));
 } catch (error) {
   core.setFailed(error.message);
