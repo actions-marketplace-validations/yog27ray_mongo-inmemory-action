@@ -1,0 +1,17 @@
+name: mongo-inmemory-action CI
+on: [push]
+
+jobs:
+  test_mongo_action:
+    runs-on: ubuntu-latest
+    name: Test mongo-inmemory-action
+    steps:
+      - name: Create mongo Docker container
+        id: build_mongo_docker
+        uses: yog27ray/mongo-inmemory-action@v1.0.0
+        with:
+          image-version: latest
+          port: 27007
+      - name: Test mongo connection
+        id: test_mongo_connection
+        run: "mongo localhost:27007"
