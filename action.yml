@@ -1,6 +1,6 @@
 # action.yml
 name: "mongo-inmemory-action"
-author: "Evan Tay"
+author: "Yogendra Singh"
 description: "A Github Action to create a Docker container from the official mongo image."
 branding:
   icon: "database"
@@ -17,3 +17,4 @@ inputs:
 runs:
   using: "node12"
   main: "dist/index.js"
+  post: "dist/post/index.js"

@@ -488,10 +488,10 @@ async function executeCommands(commands) {
 }
 
 try {
-  const image_version = core.getInput("image_version");
-  const port = core.getInput("port");
-
-  const commands = [`docker run -d -p ${port}:${port} mongo:${image_version} --port ${port} --storageEngine ephemeralForTest`];
+  const id = '1';
+  const commands = [];
+  commands.push(`ls -la`);
+  commands.push(`docker stop ${id}`);
   executeCommands(commands).catch((error) => core.setFailed(error.message));
 } catch (error) {
   core.setFailed(error.message);
